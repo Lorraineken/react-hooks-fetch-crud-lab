@@ -1,21 +1,10 @@
-import React,{useEffect,useState} from "react";
+import React from "react";
 import QuestionItem from "./QuestionItem";
 
-function QuestionList() {
- 
-  const[fetchedData,setData] = useState([])
+function QuestionList({questionsData,onDeleteQuestion}) {
   
-
-   useEffect(() =>{
-    fetch("http://localhost:4000/questions")
-    .then((response) =>response.json())
-    .then((data) => {
-      setData(data)
-      
-    })
-   },[])
    
-   const questions= fetchedData.map((item) => {
+   const questions= questionsData.map((item) => {
     
     return (
       <QuestionItem key={item.id} question ={
@@ -24,7 +13,7 @@ function QuestionList() {
          answers:item.answers,
          correctIndex:item.correctIndex
         }
-      } />
+      } onDeleteQuestion={onDeleteQuestion}/>
     )
    })
     
